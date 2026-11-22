@@ -5,7 +5,7 @@ const results = document.getElementById("results");
 
 // ask the user for the scores and return them as an array of numbers
 function getScores() {
-    const entry = prompt("Enter the test scores separated by commas:");
+    const entry = prompt("Enter test scores separated by commas.");
 
     // Cancel gives back null, so check for that and for an empty entry
     if (entry === null || entry.trim() === "") {
@@ -30,12 +30,18 @@ function getAverage(scores) {
     return total / scores.length;
 }
 
+// show a message on the page and in an alert box
+function showMessage(message) {
+    results.textContent = message;
+    alert(message);
+}
+
 // get the scores, then display them with the low, high, and average
 function displayScores() {
     const scores = getScores();
 
     if (scores.length === 0) {
-        results.textContent = "No scores were entered.";
+        showMessage("No scores were entered.");
         return;
     }
 
@@ -44,11 +50,12 @@ function displayScores() {
     const high = Math.max(...scores);
     const average = getAverage(scores);
 
-    results.innerHTML =
-        "Scores: " + scores.join(", ") + "<br>" +
-        "Low score: " + low + "<br>" +
-        "High score: " + high + "<br>" +
-        "Average score: " + average.toFixed(1);
+    showMessage(
+        "Scores: " + scores.join(", ") + "\n" +
+        "Low score = " + low + "\n" +
+        "High score = " + high + "\n" +
+        "Average score = " + average.toFixed(1)
+    );
 }
 
 scoresBtn.addEventListener("click", displayScores);
